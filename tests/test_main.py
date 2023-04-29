@@ -1,5 +1,6 @@
 import platform
 import shutil
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import call
@@ -4158,6 +4159,9 @@ def test_jsonschema_without_titles_use_title_as_name():
         main()
 
 
+@pytest.mark.skipif(
+    sys.version_info > (3, 8), reason='Python 3.9 or later have builtin annotated types'
+)
 @freeze_time('2019-07-26')
 def test_main_use_annotated_with_field_constraints():
     with TemporaryDirectory() as output_dir:
